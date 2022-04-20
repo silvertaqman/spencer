@@ -15,10 +15,14 @@ from sklearn.model_selection import train_test_split as tts
 X, Xt, y, yt = tts(bc_input,bc_output,random_state=74)
 
 #GridSearching fot tuning hyperparameters
-#gamma = [j/100000 for j in range(200,600,20)]
-#C = [i/2 for i in range(10,50,2)] 
-gamma = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
-C = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
+# RBF
+# 1) gamma y C de 0.0001 a 1000
+# 2) gamma de 0.0001 a 1 y C de 1 a 1000
+gamma = [i/10000 for i in range(0,10000,100)]
+C = [i for i in range(0,1000,10)]
+# Linear: 
+# gamma = [j/100000 for j in range(200,600,20)]
+# C = [i/2 for i in range(10,50,2)] 
 kernel = ['rbf']
 param_grid = {'C': C,'gamma': gamma, 'kernel':kernel}
 from sklearn.svm import SVC
@@ -31,7 +35,7 @@ gs.fit(X,y)
 results = pd.DataFrame(gs.cv_results_)
 Features = list(results.columns)
 params = pd.DataFrame(results,columns=Features)
-params.to_csv('params.csv', index=False)
+params.to_csv('params1.csv', index=False)
 '''
 Problema dual: maximizas el valor de la ganancia
 Los coefcientes dan los  hiperplanos que claifican entre cancer y no cancer. 
