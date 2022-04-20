@@ -19,7 +19,7 @@ X, Xt, y, yt = tts(bc_input,bc_output,random_state=74)
 # 1) gamma y C de 0.0001 a 1000 becomes 0.91
 # 2) gamma de 0.0001 a 1 y C de 1 a 1000 becomes 0.9484
 # 3) gamma de 0.3 a 0.33 y C de 20 a 40 becomes 
-gamma = [i/100 for i in range(300,330,1)]
+gamma = [i/1000 for i in range(300,330,1)]
 C = [i for i in range(10,40,1)]
 # Linear: 
 # gamma = [j/100000 for j in range(200,600,20)]
