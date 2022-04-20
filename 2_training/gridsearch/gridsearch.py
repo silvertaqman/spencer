@@ -16,10 +16,11 @@ X, Xt, y, yt = tts(bc_input,bc_output,random_state=74)
 
 #GridSearching fot tuning hyperparameters
 # RBF
-# 1) gamma y C de 0.0001 a 1000
-# 2) gamma de 0.0001 a 1 y C de 1 a 1000
-gamma = [i/10000 for i in range(0,10000,100)]
-C = [i for i in range(0,1000,10)]
+# 1) gamma y C de 0.0001 a 1000 becomes 0.91
+# 2) gamma de 0.0001 a 1 y C de 1 a 1000 becomes 0.9484
+# 3) gamma de 0.3 a 0.33 y C de 20 a 40 becomes 
+gamma = [i/100 for i in range(300,330,1)]
+C = [i for i in range(10,40,1)]
 # Linear: 
 # gamma = [j/100000 for j in range(200,600,20)]
 # C = [i/2 for i in range(10,50,2)] 
@@ -35,7 +36,7 @@ gs.fit(X,y)
 results = pd.DataFrame(gs.cv_results_)
 Features = list(results.columns)
 params = pd.DataFrame(results,columns=Features)
-params.to_csv('params1.csv', index=False)
+params.to_csv('params2.csv', index=False)
 '''
 Problema dual: maximizas el valor de la ganancia
 Los coefcientes dan los  hiperplanos que claifican entre cancer y no cancer. 
@@ -51,7 +52,7 @@ Se buscaron los parámetros con la funcion gridsearchcv en sklearn para svm: dis
 # best_score of 0.814 with C=7, gamma=0.0044 (0.829 con Xt y yt)
 # best score of 0.8137 with C=21, gamma = 0.002
 # best score of 0.817 with C = 9, gamma = 0.002
+# best score of 0.817 with C = 9, gamma = 0.00315 (0.8205 con Xt y yt)
 # best score of 0.819 with C = 11, gamma = 0.003  (0.8205 con Xt y yt)
 # best score of 0.8193374 with C = 10, gamma = 0.0028  (0.82051 con Xt y yt)
-# best score of 0.817 with C = 9, gamma = 0.00315 (0.8205 con Xt y yt)
 # Parece que existen varios maximos locales
