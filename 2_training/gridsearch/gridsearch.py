@@ -18,13 +18,11 @@ X, Xt, y, yt = tts(bc_input,bc_output,random_state=74)
 # RBF
 # 1) gamma y C de 0.0001 a 1000 becomes 0.91
 # 2) gamma de 0.0001 a 1 y C de 1 a 1000 becomes 0.9484
-# 3) gamma de 0.3 a 0.33 y C de 20 a 40 becomes 
-gamma = [i/1000 for i in range(300,330,1)]
-C = [i for i in range(10,40,1)]
-# Linear: 
-# gamma = [j/100000 for j in range(200,600,20)]
-# C = [i/2 for i in range(10,50,2)] 
-kernel = ['rbf']
+# 3) gamma de 0.3 a 0.33 y C de 20 a 40 becomes 0.9484
+# 4) Se estabiliza entre C: 25, gamma = 0.303
+gamma = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
+C = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
+kernel = ['linear']
 param_grid = {'C': C,'gamma': gamma, 'kernel':kernel}
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
@@ -36,7 +34,7 @@ gs.fit(X,y)
 results = pd.DataFrame(gs.cv_results_)
 Features = list(results.columns)
 params = pd.DataFrame(results,columns=Features)
-params.to_csv('params2.csv', index=False)
+params.to_csv('lin.csv', index=False)
 '''
 Problema dual: maximizas el valor de la ganancia
 Los coefcientes dan los  hiperplanos que claifican entre cancer y no cancer. 
