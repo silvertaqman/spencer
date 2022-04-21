@@ -20,8 +20,8 @@ X, Xt, y, yt = tts(bc_input,bc_output,random_state=74)
 # 2) gamma de 0.0001 a 1 y C de 1 a 1000 becomes 0.9484
 # 3) gamma de 0.3 a 0.33 y C de 20 a 40 becomes 0.9484
 # 4) Se estabiliza entre C: 25, gamma = 0.303
-gamma = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
-C = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
+gamma = [i/100 for i in range(1,101)]
+C = [i for i in range(1,101)]
 kernel = ['linear']
 param_grid = {'C': C,'gamma': gamma, 'kernel':kernel}
 from sklearn.svm import SVC
