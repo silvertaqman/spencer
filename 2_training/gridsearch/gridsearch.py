@@ -44,4 +44,4 @@ Se buscaron los parámetros con la funcion gridsearchcv en sklearn para svm: dis
 '''
 # Grid search en busca de los parametros del SVM lineal
 # 100*100 mesh from gamma: 0.01 to 1, and C from 1 to 100
-# generates an accuracy of 0. with C: 3, gamma= 0.8
+# generates an accuracy of 0.91 with C: 3, gamma= 0.8
