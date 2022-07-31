@@ -6,17 +6,22 @@ library(ggplot2)
 library(ggpubr)
 library(gg3D)
 library(ggmosaic)
+
+'''
+hidden_layer = [x for x in itertools.product((128*4,128*3,128*2,128*1,128/2,128/4,128/8), repeat=2)]  # repeat indica el numero de capas.
+Cambiar el 128, buscar la curva de sobreajuste para los 4. 
+Agregar desviacion estandar
+'''
+
 # Exploratory analysis
 
 # Loading data and add a run column, then drop na values
-surfacelin <- read_csv("linear.csv.gz") %>%
-	select(param_C, param_gamma, mean_test_score)
 surfacerbf <- read_csv("rbf.csv.gz") %>%
-	select(param_C, param_gamma, mean_test_score)
+	select(param_C, param_gamma, mean_test_score, std_test_score)
 surfacelog <- read_csv("logistic.csv.gz") %>%
-	select(param_C, param_penalty, param_solver, mean_test_score)
+	select(param_C, param_penalty, param_solver, mean_test_score, std_test_score)
 surfacemlp <- read_csv("mlp.csv.gz") %>%
-	select(param_activation, param_alpha, param_hidden_layer_sizes,param_learning_rate_init,param_solver, mean_test_score) %>%
+	select(param_activation, param_hidden_layer_sizes,param_learning_rate_init,mean_test_score,std_test_score) %>%
 	mutate_if(is.character, as.factor)
 
 # Plots: sequential explanation to delimite best parameters
